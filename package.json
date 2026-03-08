@@ -27,6 +27,7 @@
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",
     "@elysiajs/openapi": "^1.4.14",
+    "@upstash/redis": "^1.36.3",
     "axios": "^1.13.6",
     "axios-cookiejar-support": "^6.0.5",
     "cheerio": "^1.2.0",
