@@ -14,8 +14,9 @@ import { mappingRoutes } from "./core/mappingRoutes";
 import { proxyRoutes } from "./core/proxyRoutes";
 import { animeRoutes } from "./providers/anime/route";
 import { mangaRoutes } from "./providers/manga/route";
-import { yFlixRoutes } from "./providers/yflix/route";
+import { primesrcRoutes } from "./providers/primesrc/route";
 import { tidalRoutes } from "./providers/tidal/route";
+import { yFlixRoutes } from "./providers/yflix/route";
 
 validateConfig();
 
@@ -67,23 +68,15 @@ app
       summary: 'System Status & API Overview' 
     }
   })
+  .use(yFlixRoutes)
+  .use(primesrcRoutes)
   .use(animeRoutes)
   .use(mangaRoutes)
-  .use(mappingRoutes)
-  .use(yFlixRoutes)
   .use(tidalRoutes)
   .use(proxyRoutes)
-  .get("/tidal-demo", () => Bun.file("tests/tidal_demo.html"))
-  .onError(({ code, error, set }: any) => {
-    if (code === 'NOT_FOUND') {
-      set.status = 404;
-      return { status: 404, success: false, message: "Route not found", data: null };
-    }
-    set.status = 500;
-    return { status: 500, success: false, message: error.message || "Internal Server Error", data: null };
-  });
+  .use(mappingRoutes)
 
-  
+
 app.listen(PORT);
 
 Logger.info(
