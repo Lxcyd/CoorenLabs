@@ -6,6 +6,7 @@ import { Cache } from "../../core/cache";
 import { Logger } from "../../core/logger";
 import { USER_AGENT } from "../anime/animepahe/scraper";
 import { extractPrimevid } from "./extractors/primevid";
+import { extractStreamtape } from "./extractors/streamtape";
 import type { Response, ServerSource } from "./types";
 
 const origin = "https://primesrc.me"
@@ -59,33 +60,39 @@ export class Primesrc {
 
             const serverSources: ServerSource[] = []
 
+
+            const supportedServers = ["PrimeVid", "Streamtape"]  //TODO implement other servers
+            const serversExtractors = {
+                "PrimeVid": extractPrimevid,
+                "Streamtape": extractStreamtape
+            }
+
             for (const server of servers) {
                 const { quality, key, name, file_name, file_size } = server;
 
-                if (name == "PrimeVid") {
-                    const res2 = await fetch("https://primesrc.me/api/v1/l?key=8l7ry", { headers })
+                if (!supportedServers.includes(name)) continue
 
-                    if (!res2.ok) {
-                        Logger.error("[primesrc]", "failed to fetch for server: ", name);
-                        continue;
-                    }
+                const res2 = await fetch(`${origin}/api/v1/l?key=${key}`, { headers })
 
-                    const { link } = await res2.json();
-                    if (!link) {
-                        Logger.error("[primesrc]", "`link` field not found for server: ", name);
-                        continue;
-                    }
-
-                    const data = await extractPrimevid(link);
-                    if (!data) continue;
-
-                    const { sources, subtitles } = data;
-                    if (!sources) continue;
-
-                    serverSources.push({ name, sources, subtitles })
+                if (!res2.ok) {
+                    Logger.error("[primesrc]", "failed to fetch for server: ", name);
+                    continue;
                 }
 
-                // implement other servers
+                const { link } = await res2.json();
+                if (!link) {
+                    Logger.error("[primesrc]", "`link` field not found for server: ", name);
+                    continue;
+                }
+
+                const data = await serversExtractors[name as keyof typeof serversExtractors](link);
+                if (!data) continue;
+
+                const { sources, subtitles } = data;
+                if (!sources) continue;
+
+                serverSources.push({ name, sources, subtitles })
+
             }
 
             return serverSources;

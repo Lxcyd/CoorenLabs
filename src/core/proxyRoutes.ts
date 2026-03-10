@@ -7,7 +7,9 @@ import { Logger } from "./logger";
 const MAX_M3U8_SIZE = 5 * 1024 * 1024;       // 5 MB
 const MAX_TS_SIZE = 50 * 1024 * 1024;        // 50 MB
 const MAX_FETCH_SIZE = 50 * 1024 * 1024;     // 50 MB
-const MAX_MP4_SIZE = 10 * 1024 * 1024 * 1024; // 10 GB
+const MAX_MP4_SIZE = 20 * 1024 * 1024 * 1024; // 20 GB
+
+const PLAYLIST_REGEX = /\.m3u|playlist|\.txt/i
 
 if (!SERVER_ORIGIN) throw new Error("set SERVER_ORIGIN at .env!");
 
@@ -72,7 +74,7 @@ export const proxyRoutes = new Elysia({ prefix: "/proxy" })
             let proxiedUrl;
             const encodedUrl = encodeURIComponent(absoluteUrl);
 
-            if (absoluteUrl.includes('.m3u') || absoluteUrl.includes('playlist')) {
+            if (PLAYLIST_REGEX.test(absoluteUrl)) {
               proxiedUrl = `${SERVER_ORIGIN}/proxy/m3u8-proxy?url=${encodedUrl}${headers ? `&headers=${encodedHeaders}` : ""}`;
             } else {
               proxiedUrl = `${SERVER_ORIGIN}/proxy/fetch?url=${encodedUrl}${headers ? `&headers=${encodedHeaders}` : ""}`;
@@ -85,7 +87,7 @@ export const proxyRoutes = new Elysia({ prefix: "/proxy" })
         const absoluteUrl = new URL(tl, url).href;
         const encodedUrl = encodeURIComponent(absoluteUrl);
 
-        if (absoluteUrl.includes('.m3u') || absoluteUrl.includes('playlist')) {
+        if (PLAYLIST_REGEX.test(absoluteUrl)) {
           return `${SERVER_ORIGIN}/proxy/m3u8-proxy?url=${encodedUrl}${headers ? `&headers=${encodedHeaders}` : ""}`;
         } else {
           return `${SERVER_ORIGIN}/proxy/ts-segment?url=${encodedUrl}${headers ? `&headers=${encodedHeaders}` : ""}`;

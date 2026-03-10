@@ -20,7 +20,7 @@ export type Caption = {
 export type ServerSource = {
     name: string;
     sources: Source[],
-    subtitles: Caption[]
+    subtitles?: Caption[]
 }
 
 export type Response<T> = {
