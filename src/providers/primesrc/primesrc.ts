@@ -1,5 +1,5 @@
 // maintainer - @binrot
-// currently supports only `Primevid` Server, 
+// currently supports  `Primevid` and `Streamtape` Server, 
 //TODO add other server extractors
 
 import { Cache } from "../../core/cache";
