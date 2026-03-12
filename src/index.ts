@@ -2,12 +2,12 @@ import cors from "@elysiajs/cors";
 import openapi from "@elysiajs/openapi";
 import { Elysia } from "elysia";
 import {
-  CORS_CREDENTIALS,
-  CORS_ORIGIN,
-  OPENAPI_VERSION,
-  PORT,
-  REPO_URL,
-  validateConfig
+    CORS_CREDENTIALS,
+    CORS_ORIGIN,
+    OPENAPI_VERSION,
+    PORT,
+    REPO_URL,
+    validateConfig
 } from "./core/config";
 import { Logger } from "./core/logger";
 import { mappingRoutes } from "./core/mappingRoutes";
@@ -16,8 +16,8 @@ import { animeRoutes } from "./providers/anime/route";
 import { mangaRoutes } from "./providers/manga/route";
 import { primesrcRoutes } from "./providers/primesrc/route";
 import { tidalRoutes } from "./providers/tidal/route";
+import { toonstreamRoutes } from "./providers/toonstream/route";
 import { yFlixRoutes } from "./providers/yflix/route";
-import { toonstreamRoutes } from "./providers/anime/toonstream/route";
 
 validateConfig();
 

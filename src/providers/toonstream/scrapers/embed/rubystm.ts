@@ -204,6 +204,6 @@ export function scrapeStreamRuby(html: string): DirectSource | null {
             "Referer": rubyStreamOrigin + "/",
             // "User-Agent": UserAgent,
         },
-        needProxy:false,
+        proxiedUrl: hlsMatch[2]
     };
 }

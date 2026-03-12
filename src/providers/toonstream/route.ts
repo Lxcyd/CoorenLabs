@@ -1,7 +1,7 @@
 import { Elysia, t } from "elysia";
-import { Cache } from "../../../core/cache";
-import { isTooLarge } from "../../../core/helper";
-import { Logger } from "../../../core/logger";
+import { Cache } from "../../core/cache";
+import { isTooLarge } from "../../core/helper";
+import { Logger } from "../../core/logger";
 import { ScrapeHomePage } from "./scrapers/home";
 import { ScrapeMovieInfo, ScrapeMovies, ScrapeMovieSources } from "./scrapers/movie";
 import { ScrapeSearch } from "./scrapers/search";
@@ -139,7 +139,7 @@ export const toonstreamRoutes = new Elysia({ prefix })
     {
       params: t.Object({
         query: t.String(),
-        page: t.Optional(t.Number()),
+        page: t.Optional(t.Number({ default: 1 })),
       }),
     }
   )
@@ -184,7 +184,7 @@ export const toonstreamRoutes = new Elysia({ prefix })
     },
     {
       params: t.Object({
-        page: t.Optional(t.Number()),
+        page: t.Optional(t.Number({ default: 1 })),
       }),
     }
   )
@@ -282,7 +282,7 @@ export const toonstreamRoutes = new Elysia({ prefix })
     },
     {
       params: t.Object({
-        page: t.Optional(t.Number()),
+        page: t.Optional(t.Number({ default: 1 })),
       }),
     }
   )
@@ -332,7 +332,6 @@ export const toonstreamRoutes = new Elysia({ prefix })
         msg: "No Data Scraped!",
       };
   })
-
 
 
   .get("/m3u8-proxy", async ({ request, query: { url, headers } }) => {

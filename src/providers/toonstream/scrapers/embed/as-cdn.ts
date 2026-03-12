@@ -1,4 +1,5 @@
 import { embedPlayerOrigins, UserAgent } from "../../lib/const";
+import { proxifyUrl } from "../../lib/proxy";
 import { DirectSource } from "../../lib/types";
 
 const { asCdnOrigin } = embedPlayerOrigins
@@ -72,7 +73,8 @@ export async function getAsCdnSource(url: string, origin: string = asCdnOrigin):
         // console.log(videoSource)
         // console.log(securedLink)
 
-        return { label, type, url: streamUrl, thumbnail, headers: corsHeaders }; // fuck typescript, fuck microsoft
+
+        return { label, type, url: streamUrl, thumbnail, headers: corsHeaders, proxiedUrl: proxifyUrl(streamUrl, type, corsHeaders) }; // fuck typescript, fuck microsoft
 
     } catch (err) {
         console.log("[Error]", err);
