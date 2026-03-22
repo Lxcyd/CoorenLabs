@@ -1,6 +1,7 @@
 export const animepahe = "https://animepahe.si";
 export const animekai = "https://anikai.to";
 export const toonstream = "https://toonstream.dad";
+export const animesalt = "https://animesalt.ac";
 
 export const flixhq = "https://flixhq.to";
 export const yflix = "https://yflix.to";

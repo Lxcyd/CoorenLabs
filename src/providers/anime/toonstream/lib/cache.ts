@@ -3,15 +3,19 @@ import { RedisClient } from "bun";
 const redisUrl = Bun.env.REDIS_URL || undefined;
 const cacheEnabled = process.env.ENABLE_CACHE && process.env.ENABLE_CACHE == "true"
 
-if(!cacheEnabled){
-    console.log("[Cache] Caching is disabled! serving without cache.")
-}else{
-    console.log("[Cache] Caching is enabled! serving with cache.")
+let redis: RedisClient | null = null;
+
+if (!cacheEnabled) {
+    console.log("[Cache] Caching is disabled! serving without cache.");
+} else {
+    console.log("[Cache] Caching is enabled! serving with cache.");
+
+    redis = new RedisClient(redisUrl, {
+        maxRetries: 3
+    });
 }
 
-export const redis = new RedisClient(redisUrl, {
-    maxRetries: 3
-});
+export { redis };
 
 const PREFIX = "toonstream:";
 

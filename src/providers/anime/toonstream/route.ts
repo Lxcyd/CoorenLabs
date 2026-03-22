@@ -54,8 +54,8 @@ export const toonstreamRoutes = new Elysia({ prefix: "/toonstream" })
         prefix + "/search/{query}/{page}",
         "----------------------",
         prefix + "/movies/{page}",
-        prefix + "/movie/info/{slug}",
-        prefix + "/movie/sources/{url}",
+        prefix + "/movies/info/{slug}",
+        prefix + "/movies/sources/{slug}",
         "----------------------",
         prefix + "/series/{page}",
         prefix + "/series/info/{slug}",
@@ -188,7 +188,7 @@ export const toonstreamRoutes = new Elysia({ prefix: "/toonstream" })
       }),
     }
   )
-  .get("/movie/info/:slug", async ({ params: { slug } }) => {
+  .get("/movies/info/:slug", async ({ params: { slug } }) => {
 
     const then = performance.now();
     const key = `movie:info:${slug}`;
@@ -222,7 +222,7 @@ export const toonstreamRoutes = new Elysia({ prefix: "/toonstream" })
         msg: "No Data Scraped!",
       };
   })
-  .get("/movie/sources/:slug/", async ({ params: { slug } }) => {
+  .get("/movies/sources/:slug", async ({ params: { slug } }) => {
     const then = performance.now();
 
     const data = await ScrapeMovieSources(slug);
