@@ -144,7 +144,7 @@ export class VidfastParser {
       const payload = await new Promise<any>((resolve) => {
         let isResolved = false;
         let serverList: any[] = [];
-        let collectedSources: any[] = [];
+        const collectedSources: any[] = [];
         let expectedServerCount = 1;
 
         const timeoutTimer = setTimeout(async () => {

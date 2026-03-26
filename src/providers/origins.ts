@@ -15,4 +15,5 @@ export const allmanga = "https://allmanga.to";
 export const allmanga_api = "https://api.allanime.day/api";
 export const mangaball = "https://mangaball.net";
 
+export const himovies = "https://himovies.to";
 export const tidal = "https://api.tidal.com/v1";

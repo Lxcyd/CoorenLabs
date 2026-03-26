@@ -162,7 +162,7 @@ export class VideoStream {
       data = [...data].map((char) => mapping[char] || char).join("");
     }
     const lengthStr = data.slice(0, 4);
-    let length = parseInt(lengthStr, 10);
+    const length = parseInt(lengthStr, 10);
     if (isNaN(length) || length <= 0 || length > data.length - 4) {
       console.error("Invalid length in decrypted string");
       return data;

@@ -113,8 +113,8 @@ export class VidcoreParser {
       const payload = await new Promise<any>((resolve) => {
         let isResolved = false;
         let serverList: any[] = [];
-        let collectedSources: any[] = [];
-        let networkSubs: any[] = [];
+        const collectedSources: any[] = [];
+        const networkSubs: any[] = [];
         let expectedServerCount = 1;
 
         const timeoutTimer = setTimeout(async () => {
